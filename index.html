@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Orb32 - Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600;700&family=Space+Grotesk:wght@400;500;700&display=swap');
+
+        :root {
+            --ink: #0a0a0a;
+            --cream: #f6f1e9;
+            --amber: #f5b14b;
+            --teal: #1d6e78;
+            --brick: #c46b3c;
+            --night: #0b1b1f;
+            --glow: rgba(245, 177, 75, 0.35);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Space Grotesk", "Kanit", sans-serif;
+            margin: 0;
+            color: var(--ink);
+            background: radial-gradient(circle at 10% 10%, #fff0d1 0%, #f6f1e9 35%, #e6e0d6 100%);
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            backdrop-filter: blur(12px);
+            background: rgba(246, 241, 233, 0.8);
+            border-bottom: 1px solid rgba(10, 10, 10, 0.08);
+        }
+
+        .top-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            padding: 18px 40px;
+        }
+
+        .brand {
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .menu {
+            display: flex;
+            gap: 20px;
+        }
+
+        .menu a {
+            color: var(--ink);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .menu a:hover {
+            color: var(--teal);
+        }
+
+        main {
+            padding: 40px 40px 0;
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+            gap: 40px;
+            align-items: center;
+            min-height: 72vh;
+            position: relative;
+        }
+
+        .hero::before,
+        .hero::after {
+            content: "";
+            position: absolute;
+            inset: auto;
+            border-radius: 999px;
+            filter: blur(0);
+            opacity: 0.4;
+            z-index: 0;
+        }
+
+        .hero::before {
+            width: 360px;
+            height: 360px;
+            background: radial-gradient(circle, var(--amber), transparent 70%);
+            left: -80px;
+            top: -60px;
+        }
+
+        .hero::after {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, var(--teal), transparent 70%);
+            right: 0;
+            bottom: -50px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 14px;
+            border-radius: 999px;
+            background: #fff;
+            border: 1px solid rgba(10, 10, 10, 0.12);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .hero-title {
+            font-family: "Kanit", sans-serif;
+            font-size: clamp(2.6rem, 4vw, 4rem);
+            margin: 18px 0 12px;
+            line-height: 1.05;
+        }
+
+        .hero-title span {
+            color: var(--teal);
+        }
+
+        .hero-sub {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            max-width: 520px;
+            color: #2b2b2b;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-top: 24px;
+        }
+
+        .btn {
+            padding: 12px 18px;
+            border-radius: 999px;
+            font-weight: 600;
+            border: 1px solid var(--ink);
+            background: var(--ink);
+            color: var(--cream);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .btn.secondary {
+            background: transparent;
+            color: var(--ink);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(10, 10, 10, 0.2);
+        }
+
+        .hero-card {
+            position: relative;
+            z-index: 1;
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 24px;
+            box-shadow: 0 20px 60px rgba(11, 27, 31, 0.18);
+            border: 1px solid rgba(10, 10, 10, 0.08);
+            display: grid;
+            gap: 18px;
+            animation: floatIn 0.8s ease-out;
+        }
+
+        .product-photo {
+            width: 100%;
+            border-radius: 18px;
+            object-fit: cover;
+            background: #f2f2f2;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .stat {
+            padding: 12px;
+            border-radius: 12px;
+            background: var(--cream);
+            border: 1px solid rgba(10, 10, 10, 0.08);
+        }
+
+        .stat h4 {
+            margin: 0 0 6px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--brick);
+        }
+
+        .stat p {
+            margin: 0;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .specs-section {
+            margin-top: 60px;
+            display: grid;
+            grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+            gap: 36px;
+            align-items: center;
+        }
+
+        .specs-card {
+            background: var(--night);
+            color: #fff;
+            padding: 26px;
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(11, 27, 31, 0.3);
+        }
+
+        .specs-card::before {
+            content: "";
+            position: absolute;
+            width: 220px;
+            height: 220px;
+            background: radial-gradient(circle, var(--amber), transparent 70%);
+            top: -80px;
+            right: -60px;
+            opacity: 0.6;
+        }
+
+        .specs-card h3 {
+            font-family: "Kanit", sans-serif;
+            font-size: 2rem;
+            margin: 0 0 12px;
+        }
+
+        .specs-card p {
+            margin: 0 0 18px;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+        }
+
+        .specs-list {
+            display: grid;
+            gap: 10px;
+            font-size: 0.95rem;
+        }
+
+        .specs-list span {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .specs-grid {
+            display: grid;
+            gap: 14px;
+        }
+
+        .specs-item {
+            background: #fff;
+            border-radius: 16px;
+            border: 1px solid rgba(10, 10, 10, 0.08);
+            padding: 16px 18px;
+            box-shadow: 0 12px 24px rgba(11, 27, 31, 0.12);
+        }
+
+        .specs-item h5 {
+            margin: 0 0 6px;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--teal);
+        }
+
+        .specs-item p {
+            margin: 0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #2b2b2b;
+        }
+
+        .highlight {
+            margin-top: 60px;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .highlight-card {
+            padding: 20px;
+            border-radius: 18px;
+            border: 1px solid rgba(10, 10, 10, 0.08);
+            background: #fff;
+            box-shadow: 0 12px 30px rgba(11, 27, 31, 0.12);
+        }
+
+        .highlight-card h4 {
+            margin: 0 0 8px;
+        }
+
+        footer {
+            margin: 60px 0 30px;
+            text-align: center;
+            color: #777;
+        }
+
+        @keyframes floatIn {
+            from {
+                transform: translateY(24px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 900px) {
+
+            .hero,
+            .specs-section {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-grid,
+            .highlight {
+                grid-template-columns: 1fr;
+            }
+
+            header {
+                position: static;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .top-bar {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 16px 20px;
+            }
+
+            main {
+                padding: 24px 20px 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="top-bar">
+            <div class="brand">Orb32</div>
+            <nav class="menu" aria-label="Primary">
+                <a href="index.html">Home</a>
+                <a href="product.html">Product</a>
+                <a href="instruction.html">Instructions</a>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <div class="hero-kicker">Smart Desk Display</div>
+                <h1 class="hero-title">Meet the <span>Orb32 A1 mini</span> that makes every day life a lot easier.</h1>
+                <p class="hero-sub">
+                    Orb32 A1 mini is a compact, screen first controller with a sturdy enclosure, a rotary knob for quick
+                    navigation,
+                    and a dedicated Back button. It connects to WiFi and lets you view stock, crypto, and forex graphs
+                    at a glance,
+                    along with live weather and much more.  A simple focused interface in a small footprint ideal for a
+                    quick desk side dashboard.
+                </p>
+                <div class="hero-actions">
+                    <a class="btn" href="product.html">Explore Product</a>
+                    <a class="btn secondary" href="instruction.html">View Instructions</a>
+                </div>
+            </div>
+            <div class="hero-card">
+                <img class="product-photo" src="pic1.jpg" alt="Orb32 product photo">
+                <div class="stat-grid">
+                    <div class="stat">
+                        <h4>Control</h4>
+                        <p>Multi-zone</p>
+                    </div>
+                    <div class="stat">
+                        <h4>Customizable</h4>
+                        <p>Open source</p>
+                    </div>
+                    <div class="stat">
+                        <h4>Build</h4>
+                        <p>Rugged body</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="specs-section">
+            <div class="specs-card">
+                <h3>A mini display that's compact with features and fully customizable.</h3>
+                <p>
+                    Orb32 A1 mini is compact with features for people who want a small always on dashboard. 
+                    Its fully customizable, so you can decide what shows up and how it looks perfect for a desk, workshop, 
+                    or bedside setup. With WiFi built in, it can display stock, crypto, and forex graphs, live weather, 
+                    all in a clean, easy to read interface. The rotary knob and Back button make navigation fast and tactile, 
+                    so you can move through views without fuss.
+                </p>
+                <div class="specs-list">
+                    <span>• Custom your own firmware</span>
+                    <span>• Update firmware every month</span>
+                    <span>• 7 hours battery life</span>
+                </div>
+            </div>
+            <div class="specs-grid" aria-label="Product specifications">
+                <div class="specs-item">
+                    <h5>1. Esp32 c3 super mini chip</h5>
+                    <p>160 MHz 32-bit RISC-V single-core processor. 2.4GHz wifi Bluetooth 5.0 and 4 MB memory with 400KB
+                        SRAM 384 KB ROM.</p>
+                </div>
+                <div class="specs-item">
+                    <h5>2. 2.4 tft screen</h5>
+                    <p>2.4 inch with 4 - SPI RGB screen ST7789 driver.</p>
+                </div>
+                <div class="specs-item">
+                    <h5>3. EC11 knob</h5>
+                    <p>EC11 Rotary Encoder 360 degree continuous rotation with its own push button.</p>
+                </div>
+                <div class="specs-item">
+                    <h5>4. Push button</h5>
+                    <p>Push and released momentary switch use to turn on Orb32 A1 mini.</p>
+                </div>
+                <div class="specs-item">
+                    <h5>5. 1x 18650 lithium battery</h5>
+                    <p>3.7V 9000mAh rechargeable (Li-ion) cell long battery life with low power Esp32 c3 super mini
+                        chip.</p>
+                </div>
+                <div class="specs-item">
+                    <h5>6. TP4056 battery charger</h5>
+                    <p>Linear charging IC/module 5.5 V USB type C fast charge not supported.</p>
+                </div>
+                <div class="specs-item">
+                    <h5>7. Power switch</h5>
+                    <p>Use to cut off power directly from battery to the chip.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="highlight">
+            <div class="highlight-card">
+                <h4>Designed for Everyone</h4>
+                <p>Simple, tactile controls and a clean, easy to read display make 
+                    daily use feel natural whether you're at a desk, workshop, or bedside.</p>
+            </div>
+            <div class="highlight-card">
+                <h4>Useful Features</h4>
+                <p>Live weather, stock, crypto, forex graphs and much more + Customizable 
+                    firmware at your fingertips make it easy to personalize your experience.</p>
+            </div>
+            <div class="highlight-card">
+                <h4>Safe and Reliable</h4>
+                <p>A rugged enclosure, stable power design, and direct power switch keep the 
+                    Orb32 A1 mini dependable for everyday use.</p>
+            </div>
+        </section>
+    </main>
+    <footer>
+        &copy; 2026 P&amp;P iot solutions. All rights reserved.
+    </footer>
+</body>
+
+</html>
