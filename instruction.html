@@ -6,16 +6,35 @@
     <title>Orb32 - Instructions</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600;700&family=Space+Grotesk:wght@400;500;700&display=swap');
+
+        :root {
+            --ink: #0a0a0a;
+            --cream: #f6f1e9;
+            --amber: #f5b14b;
+            --teal: #1d6e78;
+            --brick: #c46b3c;
+            --night: #0b1b1f;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: "Space Grotesk", "Kanit", sans-serif;
             margin: 0;
-            background: #f9f9f9;
+            color: var(--ink);
+            background: radial-gradient(circle at 12% 8%, #fff0d1 0%, #f6f1e9 38%, #e6e0d6 100%);
         }
 
         header {
-            background: #333;
-            color: #fff;
-            padding: 16px 40px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            backdrop-filter: blur(12px);
+            background: rgba(246, 241, 233, 0.85);
+            border-bottom: 1px solid rgba(10, 10, 10, 0.08);
         }
 
         .top-bar {
@@ -23,11 +42,12 @@
             align-items: center;
             justify-content: space-between;
             gap: 24px;
+            padding: 18px 40px;
         }
 
         .brand {
             font-weight: 700;
-            letter-spacing: 0.5px;
+            letter-spacing: 2px;
             text-transform: uppercase;
         }
 
@@ -37,23 +57,194 @@
         }
 
         .menu a {
-            color: #fff;
+            color: var(--ink);
             text-decoration: none;
             font-weight: 600;
+            font-size: 0.95rem;
         }
 
         .menu a:hover {
-            text-decoration: underline;
+            color: var(--teal);
         }
 
         main {
-            margin: 30px 40px 0;
+            padding: 40px 40px 0;
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+            gap: 28px;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .hero-card {
+            background: var(--night);
+            color: #fff;
+            border-radius: 24px;
+            padding: 26px;
+            box-shadow: 0 20px 40px rgba(11, 27, 31, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-card::after {
+            content: "";
+            position: absolute;
+            width: 260px;
+            height: 260px;
+            background: radial-gradient(circle, var(--amber), transparent 70%);
+            right: -90px;
+            top: -90px;
+            opacity: 0.6;
+        }
+
+        .hero-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 14px;
+            border-radius: 999px;
+            background: #fff;
+            border: 1px solid rgba(10, 10, 10, 0.12);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        h1 {
+            font-family: "Kanit", sans-serif;
+            font-size: clamp(2.2rem, 4vw, 3.4rem);
+            margin: 16px 0 12px;
+            line-height: 1.1;
+        }
+
+        .hero-text {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: #2b2b2b;
+        }
+
+        .section {
+            margin: 40px 0 0;
+        }
+
+        .section-title {
+            font-family: "Kanit", sans-serif;
+            font-size: 1.8rem;
+            margin: 0 0 16px;
+        }
+
+        .section-sub {
+            margin: 0 0 24px;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .steps {
+            display: grid;
+            gap: 18px;
+        }
+
+        .step {
+            display: grid;
+            grid-template-columns: minmax(0, 0.65fr) minmax(0, 0.35fr);
+            gap: 18px;
+            background: #fff;
+            border-radius: 18px;
+            padding: 18px;
+            border: 1px solid rgba(10, 10, 10, 0.08);
+            box-shadow: 0 12px 24px rgba(11, 27, 31, 0.12);
+        }
+
+        .step h4 {
+            margin: 0 0 8px;
+            font-size: 1rem;
+            color: var(--teal);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .step p {
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .step-image {
+            border-radius: 14px;
+            border: 1px dashed rgba(10, 10, 10, 0.2);
+            background: linear-gradient(135deg, rgba(245, 177, 75, 0.12), rgba(29, 110, 120, 0.12));
+            min-height: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 0.9rem;
+            text-align: center;
+            padding: 12px;
+        }
+
+        .cta-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 16px;
+            margin-bottom: 16px;
+        }
+
+        .btn {
+            padding: 12px 18px;
+            border-radius: 999px;
+            font-weight: 600;
+            border: 1px solid var(--ink);
+            background: var(--ink);
+            color: var(--cream);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .btn.secondary {
+            background: var(--teal);
+            border-color: var(--teal);
+            color: #fff;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(10, 10, 10, 0.2);
         }
 
         footer {
-            margin-top: 40px;
+            margin: 60px 0 30px;
             text-align: center;
-            color: #888;
+            color: #777;
+        }
+
+        @media (max-width: 900px) {
+            .hero,
+            .step {
+                grid-template-columns: 1fr;
+            }
+
+            header {
+                position: static;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .top-bar {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 16px 20px;
+            }
+
+            main {
+                padding: 24px 20px 0;
+            }
         }
     </style>
 </head>
@@ -70,10 +261,161 @@
         </div>
     </header>
     <main>
-        <p>Instruction</p>
+        <section class="hero">
+            <div>
+                <div class="hero-kicker">Customizable Hardware</div>
+                <h1>You’re orb32 A1 mini is customisable Here’s how</h1>
+                <p class="hero-text">
+                    This device is built for makers. You can program it from scratch or drop in our starter code to
+                    move faster. Either way, you get full control, clean hardware access, and a smooth upgrade path as
+                    your ideas grow.
+                </p>
+            </div>
+            <div class="hero-card">
+                <h2>Two ways to get started</h2>
+                <p class="section-sub" style="color: rgba(255, 255, 255, 0.82);">
+                    Choose the path that fits your workflow. You can build every line yourself or customize our base
+                    project and ship quicker.
+                </p>
+                <div class="cta-bar">
+                    <a class="btn" href="#upload">Upload Code</a>
+                    <a class="btn secondary" href="#customize">Use Existing Code</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="upload" class="section">
+            <h3 class="section-title">1. Upload code to it</h3>
+            <p class="section-sub">You will write code from the ground up and compile it directly to the board.</p>
+            <div class="steps">
+                <div class="step">
+                    <div>
+                        <h4>Step 1</h4>
+                        <p>Download VSCode and install the PlatformIO extension.</p>
+                    </div>
+                    <div class="step-image">Image placeholder for step 1</div>
+                </div>
+                <div class="step">
+                    <div>
+                        <h4>Step 2</h4>
+                        <p>Click <strong>New Project</strong> inside PlatformIO.</p>
+                    </div>
+                    <div class="step-image">Image placeholder for step 2</div>
+                </div>
+                <div class="step">
+                    <div>
+                        <h4>Step 3</h4>
+                        <p>Select <strong>Espressif ESP32-C3-DevKitM-1</strong> and choose <strong>Framework: Arduino</strong>. Then click <strong>Finish</strong>.</p>
+                    </div>
+                    <div class="step-image">Image placeholder for step 3</div>
+                </div>
+                <div class="step">
+                    <div>
+                        <h4>Step 4</h4>
+                        <p>Make sure you update your <code>platformio.ini</code> file exactly like this.</p>
+                    </div>
+                    <div class="step-image">Image placeholder for step 4</div>
+                </div>
+                <div class="step">
+                    <div>
+                        <h4>Step 5</h4>
+                        <p>In your src/main.cpp file, start with this basic <strong>"hello world"</strong> code. Enjoy coding!</p>
+                    </div>
+                    <div class="step-image">Image placeholder for step 5</div>
+                </div>
+                <div class="step">
+                    <div>
+                        <h4>Step 6</h4>
+                        <p>Don’t forget to plug in to your ESP32-C3 chip with a Type-C data cable.</p>
+                    </div>
+                    <div class="step-image">Image placeholder for step 6</div>
+                </div>
+                <div class="step">
+                    <div>
+                        <h4>Step 7</h4>
+                        <p>When ready to upload, click <strong>PlatformIO: Upload</strong>.</p>
+                    </div>
+                    <div class="step-image">Image placeholder for step 7</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="customize" class="section">
+            <h3 class="section-title">2. Customise it with our existing code</h3>
+            <p class="section-sub">Use our prebuilt source code to speed up development and focus on your unique features.</p>
+            <div class="cta-bar">
+                <a class="btn" href="src.zip" download>Download our src file</a>
+            </div>
+            <div class="steps">
+                <div class="step">
+                    <div>
+                        <h4>Step 1</h4>
+                        <p>Download and extract our <strong>src</strong> file using the button above.</p>
+                    </div>
+                    <div class="step-image">Image placeholder for step 1</div>
+                </div>
+                <div class="step">
+                    <div>
+                        <h4>Step 2</h4>
+                        <p>Download VSCode and install the PlatformIO extension.</p>
+                    </div>
+                    <div class="step-image">Image placeholder for step 2</div>
+                </div>
+                <div class="step">
+                    <div>
+                        <h4>Step 3</h4>
+                        <p>Click <strong>New Project</strong> inside PlatformIO.</p>
+                    </div>
+                    <div class="step-image">Image placeholder for step 3</div>
+                </div>
+                <div class="step">
+                    <div>
+                        <h4>Step 4</h4>
+                        <p>Select <strong>Espressif ESP32-C3-DevKitM-1</strong> and choose <strong>Framework: Arduino</strong>. Then click <strong>Finish</strong>.</p>
+                    </div>
+                    <div class="step-image">Image placeholder for step 4</div>
+                </div>
+                <div class="step">
+                    <div>
+                        <h4>Step 5</h4>
+                        <p>Make sure you update your <code>platformio.ini</code> file exactly like this.</p>
+                    </div>
+                    <div class="step-image">Image placeholder for step 5</div>
+                </div>
+                <div class="step">
+                    <div>
+                        <h4>Step 6</h4>
+                        <p>Delete the <strong>src</strong> folder in your PlatformIO project and put your downloaded <strong>src</strong> folder there.</p>
+                    </div>
+                    <div class="step-image">Image placeholder for step 6</div>
+                </div>
+                <div class="step">
+                    <div>
+                        <h4>Step 7</h4>
+                        <p>Don’t forget to plug in to your ESP32-C3 chip with a Type-C data cable.</p>
+                    </div>
+                    <div class="step-image">Image placeholder for step 7</div>
+                </div>
+                <div class="step">
+                    <div>
+                        <h4>Step 8</h4>
+                        <p>When ready to upload, click <strong>PlatformIO: Upload</strong>.</p>
+                    </div>
+                    <div class="step-image">Image placeholder for step 8</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="firmware" class="section">
+            <h3 class="section-title">3. Download our main firmware code</h3>
+            <p class="section-sub">If you want to get back to default code from factory, download and extract this src folder and upload it to your Orb32 A1 mini.</p>
+            <div class="cta-bar">
+                <a class="btn" href="https://raw.githubusercontent.com/orb32/Orb32A1mini/main/src.zip" download>Download main firmware src</a>
+            </div>
+        </section>
     </main>
     <footer>
-        &copy; 2026 P&P iot solutions. All rights reserved.
+        &copy; 2026 P&amp;P iot solutions. All rights reserved.
     </footer>
 </body>
 
