@@ -171,6 +171,30 @@
             line-height: 1.6;
         }
 
+        .code-block {
+            margin-top: 12px;
+            background: #0f1c20;
+            color: #f7f7f2;
+            border-radius: 12px;
+            padding: 14px 16px;
+            font-family: "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            white-space: pre;
+            overflow-x: auto;
+        }
+
+        details.code-toggle {
+            margin-top: 12px;
+        }
+
+        details.code-toggle summary {
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--teal);
+            margin-bottom: 8px;
+        }
+
         .step-image {
             border-radius: 14px;
             border: 1px dashed rgba(10, 10, 10, 0.2);
@@ -183,6 +207,49 @@
             font-size: 0.9rem;
             text-align: center;
             padding: 12px;
+        }
+
+        .step-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+            display: block;
+        }
+
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(11, 27, 31, 0.85);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            z-index: 100;
+        }
+
+        .lightbox.open {
+            display: flex;
+        }
+
+        .lightbox-content {
+            max-width: min(1000px, 92vw);
+            max-height: 90vh;
+            border-radius: 18px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 18px;
+            right: 22px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 999px;
+            font-size: 0.9rem;
+            cursor: pointer;
         }
 
         .cta-bar {
@@ -225,6 +292,7 @@
         }
 
         @media (max-width: 900px) {
+
             .hero,
             .step {
                 grid-template-columns: 1fr;
@@ -266,7 +334,8 @@
                 <div class="hero-kicker">Customizable Hardware</div>
                 <h1>You’re orb32 A1 mini is customisable Here’s how</h1>
                 <p class="hero-text">
-                    This device is built for makers. You can program it from scratch or drop in our starter code to
+                    This device is built for makers/users. You can program it from scratch or drop in our starter code
+                    to
                     move faster. Either way, you get full control, clean hardware access, and a smooth upgrade path as
                     your ideas grow.
                 </p>
@@ -291,60 +360,136 @@
                 <div class="step">
                     <div>
                         <h4>Step 1</h4>
-                        <p>Download VSCode and install the PlatformIO extension.</p>
+                        <p>Download <a href="https://code.visualstudio.com/download" target="_blank" rel="noopener">VSCode</a> and install the PlatformIO IDE extension.</p>
                     </div>
-                    <div class="step-image">Image placeholder for step 1</div>
+                    <div class="step-image">
+                        <img src="topic1step1.png" alt="Download VSCode and install PlatformIO">
+                    </div>
                 </div>
                 <div class="step">
                     <div>
                         <h4>Step 2</h4>
                         <p>Click <strong>New Project</strong> inside PlatformIO.</p>
                     </div>
-                    <div class="step-image">Image placeholder for step 2</div>
+                    <div class="step-image">
+                        <img src="topic1step2.png" alt="Click New Project in PlatformIO">
+                    </div>
                 </div>
                 <div class="step">
                     <div>
                         <h4>Step 3</h4>
-                        <p>Select <strong>Espressif ESP32-C3-DevKitM-1</strong> and choose <strong>Framework: Arduino</strong>. Then click <strong>Finish</strong>.</p>
+                        <p>Select <strong>Board: Espressif ESP32-C3-DevKitM-1</strong> and choose <strong>Framework:
+                                Arduino</strong>. Then click <strong>Finish</strong>.</p>
                     </div>
-                    <div class="step-image">Image placeholder for step 3</div>
+                    <div class="step-image">
+                        <img src="topic1step3.png" alt="Select ESP32-C3-DevKitM-1 and Arduino framework in PlatformIO">
+                    </div>
                 </div>
                 <div class="step">
                     <div>
                         <h4>Step 4</h4>
                         <p>Make sure you update your <code>platformio.ini</code> file exactly like this.</p>
+                        <pre class="code-block">; PlatformIO Project Configuration File
+;
+;   Build options: build flags, source filter
+;   Upload options: custom upload port, speed and extra flags
+;   Library options: dependencies, extra library storages
+;   Advanced options: extra scripting
+;
+; Please visit documentation for the other options and examples
+; https://docs.platformio.org/page/projectconf.html
+
+[env:esp32-c3-devkitm-1]
+platform = espressif32
+board = esp32-c3-devkitm-1
+framework = arduino
+lib_deps = 
+	adafruit/Adafruit GFX Library
+	adafruit/Adafruit ST7735 and ST7789 Library
+	bblanchon/ArduinoJson@^7.4.2</pre>
                     </div>
-                    <div class="step-image">Image placeholder for step 4</div>
+                    <div class="step-image">
+                        <img src="topic1step4.png" alt="Update platformio.ini file with correct settings">
+                    </div>
                 </div>
                 <div class="step">
                     <div>
                         <h4>Step 5</h4>
-                        <p>In your src/main.cpp file, start with this basic <strong>"hello world"</strong> code. Enjoy coding!</p>
+                        <p>In your src/main.cpp file, start with this basic <strong>"hello world"</strong> code. Enjoy
+                            coding!</p>
+                        <details class="code-toggle">
+                            <summary>Show hello world code</summary>
+                            <pre class="code-block">#include &lt;Arduino.h&gt;
+#include &lt;SPI.h&gt;
+#include &lt;Adafruit_GFX.h&gt;
+#include &lt;Adafruit_ST7789.h&gt;
+#include &lt;ArduinoJson.h&gt;
+
+//For the ST7789 display, we need to define the pins for SCLK, MOSI, RST, DC, CS, and BLK (backlight).
+#define TFT_SCLK 4
+#define TFT_MOSI 6
+#define TFT_RST 7
+#define TFT_DC 8
+#define TFT_CS 9
+#define TFT_BLK 10
+
+Adafruit_ST7789 tft(TFT_CS, TFT_DC, TFT_RST);
+
+//For the encoder, we need to define the pins for ENC_A, ENC_B, and ENC_BTN (encoder button).
+#define ENC_A 2
+#define ENC_B 3
+#define ENC_BTN 5
+#define KO_BTN 1
+
+void setup() {
+  Serial.begin(115200);
+  pinMode(TFT_BLK, OUTPUT);
+  digitalWrite(TFT_BLK, HIGH);
+  SPI.begin(TFT_SCLK, -1, TFT_MOSI, TFT_CS);
+  tft.init(240, 320);
+  tft.setRotation(3);
+  tft.invertDisplay(false);
+}
+
+void loop() {
+  tft.fillScreen(ST77XX_BLACK);
+  tft.setTextColor(ST77XX_WHITE);
+  tft.setTextSize(2);
+  tft.setCursor(50, 120);
+  tft.print(\"Hello, World!\");
+  delay(2000);
+}</pre>
+                        </details>
                     </div>
-                    <div class="step-image">Image placeholder for step 5</div>
                 </div>
                 <div class="step">
                     <div>
                         <h4>Step 6</h4>
                         <p>Don’t forget to plug in to your ESP32-C3 chip with a Type-C data cable.</p>
                     </div>
-                    <div class="step-image">Image placeholder for step 6</div>
+                    <div class="step-image">
+                         <img src="topic1step6.jpg" alt="Plug in your Orb32 A1 mini with a Type-C data cable">
+                    </div>
                 </div>
                 <div class="step">
                     <div>
                         <h4>Step 7</h4>
-                        <p>When ready to upload, click <strong>PlatformIO: Upload</strong>.</p>
+                        <p>When ready to upload, click <strong>PlatformIO: Upload</strong>. At the bottom left.</p>
                     </div>
-                    <div class="step-image">Image placeholder for step 7</div>
+                    <div class="step-image">
+                        <img src="topic1step7.png" alt="Click PlatformIO: Upload to upload code to Orb32 A1 mini">
+                    </div>
                 </div>
             </div>
         </section>
 
         <section id="customize" class="section">
             <h3 class="section-title">2. Customise it with our existing code</h3>
-            <p class="section-sub">Use our prebuilt source code to speed up development and focus on your unique features.</p>
+            <p class="section-sub">Use our prebuilt source code to speed up development and focus on your unique
+                features.</p>
             <div class="cta-bar">
-                <a class="btn" href="src.zip" download>Download our src file</a>
+                <a class="btn" href="https://raw.githubusercontent.com/orb32/Orb32A1mini/main/tutorialmain.zip"
+                    download>Download our src file</a>
             </div>
             <div class="steps">
                 <div class="step">
@@ -352,71 +497,148 @@
                         <h4>Step 1</h4>
                         <p>Download and extract our <strong>src</strong> file using the button above.</p>
                     </div>
-                    <div class="step-image">Image placeholder for step 1</div>
+                   
                 </div>
                 <div class="step">
                     <div>
                         <h4>Step 2</h4>
-                        <p>Download VSCode and install the PlatformIO extension.</p>
+                         <p>Download <a href="https://code.visualstudio.com/download" target="_blank" rel="noopener">VSCode</a> and install the PlatformIO IDE extension.</p>
                     </div>
-                    <div class="step-image">Image placeholder for step 2</div>
+                    <div class="step-image">
+                         <img src="topic1step1.png" alt="Download VSCode and install PlatformIO">
+                    </div>
                 </div>
                 <div class="step">
                     <div>
                         <h4>Step 3</h4>
                         <p>Click <strong>New Project</strong> inside PlatformIO.</p>
                     </div>
-                    <div class="step-image">Image placeholder for step 3</div>
+                    <div class="step-image">
+                        <img src="topic1step2.png" alt="Click New Project in PlatformIO">
+                    </div>
                 </div>
                 <div class="step">
                     <div>
                         <h4>Step 4</h4>
-                        <p>Select <strong>Espressif ESP32-C3-DevKitM-1</strong> and choose <strong>Framework: Arduino</strong>. Then click <strong>Finish</strong>.</p>
+                        <p>Select <strong>Espressif ESP32-C3-DevKitM-1</strong> and choose <strong>Framework:
+                                Arduino</strong>. Then click <strong>Finish</strong>.</p>
                     </div>
-                    <div class="step-image">Image placeholder for step 4</div>
+                    <div class="step-image">
+                        <img src="topic1step3.png" alt="Select ESP32-C3-DevKitM-1 and Arduino framework in PlatformIO">
+                    </div>
                 </div>
                 <div class="step">
                     <div>
                         <h4>Step 5</h4>
                         <p>Make sure you update your <code>platformio.ini</code> file exactly like this.</p>
+                        <pre class="code-block">; PlatformIO Project Configuration File
+;
+;   Build options: build flags, source filter
+;   Upload options: custom upload port, speed and extra flags
+;   Library options: dependencies, extra library storages
+;   Advanced options: extra scripting
+;
+; Please visit documentation for the other options and examples
+; https://docs.platformio.org/page/projectconf.html
+
+[env:esp32-c3-devkitm-1]
+platform = espressif32
+board = esp32-c3-devkitm-1
+framework = arduino
+lib_deps = 
+	adafruit/Adafruit GFX Library
+	adafruit/Adafruit ST7735 and ST7789 Library
+	bblanchon/ArduinoJson@^7.4.2</pre>  
                     </div>
-                    <div class="step-image">Image placeholder for step 5</div>
+                    <div class="step-image">
+                        <img src="topic1step4.png" alt="Update platformio.ini file with correct settings">
+                    </div>
                 </div>
                 <div class="step">
                     <div>
                         <h4>Step 6</h4>
-                        <p>Delete the <strong>src</strong> folder in your PlatformIO project and put your downloaded <strong>src</strong> folder there.</p>
+                        <p>Delete the <strong>src</strong> folder in your PlatformIO project and put your downloaded
+                            <strong>src</strong> folder there.
+                        </p>
                     </div>
-                    <div class="step-image">Image placeholder for step 6</div>
+                    <div class="step-image">
+                        <img src="topic2step6.png" alt="Replace src folder in PlatformIO project with downloaded src folder">
+                    </div>
                 </div>
                 <div class="step">
                     <div>
                         <h4>Step 7</h4>
                         <p>Don’t forget to plug in to your ESP32-C3 chip with a Type-C data cable.</p>
                     </div>
-                    <div class="step-image">Image placeholder for step 7</div>
+                    <div class="step-image">
+                        <img src="topic1step6.jpg" alt="Plug in your Orb32 A1 mini with a Type-C data cable">
+                    </div>
                 </div>
                 <div class="step">
                     <div>
                         <h4>Step 8</h4>
-                        <p>When ready to upload, click <strong>PlatformIO: Upload</strong>.</p>
+                        <p>When ready to upload, click <strong>PlatformIO: Upload</strong>. At the bottom left.</p>
                     </div>
-                    <div class="step-image">Image placeholder for step 8</div>
+                    <div class="step-image">
+                        <img src="topic1step7.png" alt="Click PlatformIO: Upload to upload code to Orb32 A1 mini">
+                    </div>
                 </div>
             </div>
         </section>
 
         <section id="firmware" class="section">
             <h3 class="section-title">3. Download our main firmware code</h3>
-            <p class="section-sub">If you want to get back to default code from factory, download and extract this src folder and upload it to your Orb32 A1 mini.</p>
+            <p class="section-sub">If you want to get back to default code from factory, download and extract this src
+                folder and upload it to your Orb32 A1 mini.</p>
             <div class="cta-bar">
-                <a class="btn" href="https://raw.githubusercontent.com/orb32/Orb32A1mini/main/src.zip" download>Download main firmware src</a>
+                <a class="btn" href="https://raw.githubusercontent.com/orb32/Orb32A1mini/main/src.zip" download>Download
+                    main firmware src</a>
             </div>
         </section>
     </main>
     <footer>
         &copy; 2026 P&amp;P iot solutions. All rights reserved.
     </footer>
+
+    <div class="lightbox" id="lightbox" aria-hidden="true">
+        <button class="lightbox-close" type="button" id="lightboxClose">Close</button>
+        <img class="lightbox-content" id="lightboxImage" alt="">
+    </div>
+
+    <script>
+        const lightbox = document.getElementById("lightbox");
+        const lightboxImage = document.getElementById("lightboxImage");
+        const lightboxClose = document.getElementById("lightboxClose");
+
+        document.querySelectorAll(".step-image img").forEach((img) => {
+            img.style.cursor = "zoom-in";
+            img.addEventListener("click", () => {
+                lightboxImage.src = img.src;
+                lightboxImage.alt = img.alt || "Step image";
+                lightbox.classList.add("open");
+                lightbox.setAttribute("aria-hidden", "false");
+            });
+        });
+
+        const closeLightbox = () => {
+            lightbox.classList.remove("open");
+            lightbox.setAttribute("aria-hidden", "true");
+            lightboxImage.src = "";
+        };
+
+        lightboxClose.addEventListener("click", closeLightbox);
+        lightbox.addEventListener("click", (event) => {
+            if (event.target === lightbox) {
+                closeLightbox();
+            }
+        });
+
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape" && lightbox.classList.contains("open")) {
+                closeLightbox();
+            }
+        });
+    </script>
 </body>
 
 </html>
