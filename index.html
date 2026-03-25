@@ -188,11 +188,81 @@
             animation: floatIn 0.8s ease-out;
         }
 
-        .product-photo {
-            width: 100%;
+        .carousel {
+            position: relative;
+            overflow: hidden;
             border-radius: 18px;
-            object-fit: cover;
+            border: 1px solid rgba(10, 10, 10, 0.08);
             background: #f2f2f2;
+        }
+
+        .slides {
+            display: flex;
+            transition: transform 0.6s ease;
+        }
+
+        .slide {
+            min-width: 100%;
+            display: grid;
+            grid-template-rows: 1fr auto;
+            background: #fff;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .slide-caption {
+            padding: 12px 14px;
+            font-size: 0.95rem;
+            background: #fff;
+            border-top: 1px solid rgba(10, 10, 10, 0.08);
+        }
+
+        .carousel-controls {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 10px;
+            pointer-events: none;
+        }
+
+        .carousel-btn {
+            pointer-events: auto;
+            background: rgba(11, 27, 31, 0.8);
+            color: #fff;
+            border: none;
+            border-radius: 999px;
+            width: 36px;
+            height: 36px;
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 999px;
+            background: rgba(10, 10, 10, 0.2);
+            border: none;
+            cursor: pointer;
+        }
+
+        .dot.active {
+            background: var(--teal);
         }
 
         .stat-grid {
@@ -392,8 +462,13 @@
                     navigation,
                     and a dedicated Back button. It connects to WiFi and lets you view stock, crypto, and forex graphs
                     at a glance,
-                    along with live weather and much more.  A simple focused interface in a small footprint ideal for a
+                    along with live weather and much more. A simple focused interface in a small footprint ideal for a
                     quick desk side dashboard.
+                </p>
+                <p class="hero-sub">
+                    <a href="instruction.html"
+                        style="color: var(--teal); font-weight: 600; text-decoration: none;">Custom your own
+                        firmware</a>
                 </p>
                 <div class="hero-actions">
                     <a class="btn" href="product.html">Explore Product</a>
@@ -401,7 +476,48 @@
                 </div>
             </div>
             <div class="hero-card">
-                <img class="product-photo" src="pic1.jpg" alt="Orb32 product photo">
+                <div class="carousel" aria-label="Product gallery">
+                    <div class="slides" id="slides">
+                        <div class="slide">
+                            <img src="p8.jpg" alt="Orb32 cover view">
+                            <div class="slide-caption">The Orb32 A1 mini ready to assists you.</div>
+                        </div>
+                        <div class="slide">
+                            <img src="p1.jpg" alt="Orb32 angled view">
+                            <div class="slide-caption">A lot of features. And much more!</div>
+                        </div>
+                        <div class="slide">
+                            <img src="p2.jpg" alt="Orb32 top panel">
+                            <div class="slide-caption">With WiFi Update firmware and explore new features!.</div>
+                        </div>
+                        <div class="slide">
+                            <img src="p3.jpg" alt="Orb32 connector side">
+                            <div class="slide-caption">Live weather updates at your fingertips.</div>
+                        </div>
+                        <div class="slide">
+                            <img src="p4.jpg" alt="Orb32 rotary encoder detail">
+                            <div class="slide-caption">Cryptocurrency tracking made simple.</div>
+                        </div>
+                        <div class="slide">
+                            <img src="p5.jpg" alt="Orb32 display detail">
+                            <div class="slide-caption">Beautifully designed interface for an optimal user experience.
+                            </div>
+                        </div>
+                        <div class="slide">
+                            <img src="p6.jpg" alt="Orb32 side profile">
+                            <div class="slide-caption">Esp32 C3 chip — powerful and efficient.</div>
+                        </div>
+                        <div class="slide">
+                            <img src="p7.jpg" alt="Orb32 back view">
+                            <div class="slide-caption">Crypto, Stock, Forex — We have it all!</div>
+                        </div>
+                    </div>
+                    <div class="carousel-controls">
+                        <button class="carousel-btn" type="button" id="prevBtn" aria-label="Previous image">‹</button>
+                        <button class="carousel-btn" type="button" id="nextBtn" aria-label="Next image">›</button>
+                    </div>
+                </div>
+                <div class="carousel-dots" id="carouselDots" aria-label="Gallery navigation"></div>
                 <div class="stat-grid">
                     <div class="stat">
                         <h4>Control</h4>
@@ -423,15 +539,17 @@
             <div class="specs-card">
                 <h3>A mini display that's compact with features and fully customizable.</h3>
                 <p>
-                    Orb32 A1 mini is compact with features for people who want a small always on dashboard. 
-                    Its fully customizable, so you can decide what shows up and how it looks perfect for a desk, workshop, 
-                    or bedside setup. With WiFi built in, it can display stock, crypto, and forex graphs, live weather, 
-                    all in a clean, easy to read interface. The rotary knob and Back button make navigation fast and tactile, 
+                    Orb32 A1 mini is compact with features for people who want a small always on dashboard.
+                    Its fully customizable, so you can decide what shows up and how it looks perfect for a desk,
+                    workshop,
+                    or bedside setup. With WiFi built in, it can display stock, crypto, and forex graphs, live weather,
+                    all in a clean, easy to read interface. The rotary knob and Back button make navigation fast and
+                    tactile,
                     so you can move through views without fuss.
                 </p>
                 <div class="specs-list">
                     <span>• Custom your own firmware</span>
-                    <span>• Update firmware every month</span>
+                    <span>• Updates firmware every month</span>
                     <span>• 7 hours battery life</span>
                 </div>
             </div>
@@ -472,17 +590,17 @@
         <section class="highlight">
             <div class="highlight-card">
                 <h4>Designed for Everyone</h4>
-                <p>Simple, tactile controls and a clean, easy to read display make 
+                <p>Simple, tactile controls and a clean, easy to read display make
                     daily use feel natural whether you're at a desk, workshop, or bedside.</p>
             </div>
             <div class="highlight-card">
                 <h4>Useful Features</h4>
-                <p>Live weather, stock, crypto, forex graphs and much more + Customizable 
+                <p>Live weather, stock, crypto, forex graphs and much more + Customizable
                     firmware at your fingertips make it easy to personalize your experience.</p>
             </div>
             <div class="highlight-card">
                 <h4>Safe and Reliable</h4>
-                <p>A rugged enclosure, stable power design, and direct power switch keep the 
+                <p>A rugged enclosure, stable power design, and direct power switch keep the
                     Orb32 A1 mini dependable for everyday use.</p>
             </div>
         </section>
@@ -490,6 +608,53 @@
     <footer>
         &copy; 2026 P&amp;P iot solutions. All rights reserved.
     </footer>
+
+    <script>
+        const slides = document.getElementById("slides");
+        const slideItems = Array.from(slides.children);
+        const dotsContainer = document.getElementById("carouselDots");
+        const prevBtn = document.getElementById("prevBtn");
+        const nextBtn = document.getElementById("nextBtn");
+        let currentIndex = 0;
+
+        const updateCarousel = () => {
+            slides.style.transform = `translateX(-${currentIndex * 100}%)`;
+            dotsContainer.querySelectorAll(".dot").forEach((dot, index) => {
+                dot.classList.toggle("active", index === currentIndex);
+            });
+        };
+
+        const createDots = () => {
+            slideItems.forEach((_, index) => {
+                const dot = document.createElement("button");
+                dot.className = "dot";
+                dot.type = "button";
+                dot.setAttribute("aria-label", `Go to image ${index + 1}`);
+                dot.addEventListener("click", () => {
+                    currentIndex = index;
+                    updateCarousel();
+                });
+                dotsContainer.appendChild(dot);
+            });
+        };
+
+        const nextSlide = () => {
+            currentIndex = (currentIndex + 1) % slideItems.length;
+            updateCarousel();
+        };
+
+        const prevSlide = () => {
+            currentIndex = (currentIndex - 1 + slideItems.length) % slideItems.length;
+            updateCarousel();
+        };
+
+        prevBtn.addEventListener("click", prevSlide);
+        nextBtn.addEventListener("click", nextSlide);
+
+        createDots();
+        updateCarousel();
+
+    </script>
 </body>
 
 </html>
